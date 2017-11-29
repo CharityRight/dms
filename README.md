@@ -21,7 +21,7 @@ The DMS is a small but crucial part of a vision of developing a charity focused
 CRM solution built by charities, for charities.
 
 # Technology and architecture
-The DRM is using [dry-web-roda](https://github.com/dry-rb/dry-web-roda) as the base Ruby framework. It will
+The DMS is using [dry-web-roda](https://github.com/dry-rb/dry-web-roda) as the base Ruby framework. It will
 also use [sidekiq](https://github.com/mperham/sidekiq) to process messages alongside PostgreSQL for persistence.
 
 The aim is to write an application using functional architecture. Please watch the talks
