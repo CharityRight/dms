@@ -1,5 +1,5 @@
 # Donation Management System
-![Alt text](https://travis-ci.org/CharityRight/dms.svg?branch=master)
+[![Build Status](https://travis-ci.org/CharityRight/dms.svg?branch=master)](https://travis-ci.org/CharityRight/dms)
 
 # High Level Vision
 The idea of the application is that a CRM will send an API request with
