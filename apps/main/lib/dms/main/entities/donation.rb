@@ -7,14 +7,13 @@ module Dms
   module Main
     module Entities
       class Donation < Dry::Struct
-
+        constructor_type :schema
         Donation_Types = Types::Strict::String.enum('one-off', 'monthly', 'yearly')
 
         attribute :id, Types::Strict::Int
-        attribute :amount_in_pence, Types::Strict::Int
+        attribute :amount, Types::Strict::Int
         attribute :currency, Types::Strict::String
         attribute :zakat, Types::Bool
-        attribute :admin_fee_contribution_in_pence, Types::Strict::Int
         attribute :start_date, Types::Strict::Time
         attribute :end_date, Types::Strict::Time
         attribute :created_at, Types::Strict::Time
@@ -23,6 +22,32 @@ module Dms
 
         class WithDonor < Donation
           attribute :donor, Entities::Person
+
+          def to_json_api
+            {
+              'data' => {
+                'id' => id,
+                'type' => 'donations',
+                'attributes' => {
+                  'amount' => amount,
+                  'currency' => currency,
+                  'zakat' => zakat,
+                  'start_date' => start_date,
+                  'end_date' => end_date,
+                  'donation_type' => donation_type
+                },
+                'relationships' => {
+                  'donor' => {
+                    'links' => {
+                      "self" => "http://example.com/donations/#{id}/relationships/donor",
+                      "related" => "http://example.com/donations/#{id}/donor"
+                    },
+                    'data' => { 'type' => 'people', 'id' => donor.id }
+                  }
+                }
+              }
+            }.to_json
+          end
         end
 
         class WithDonorAndCause < Donation
