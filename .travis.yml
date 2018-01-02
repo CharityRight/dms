@@ -5,5 +5,4 @@ services:
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - echo "DATABASE_URL='postgres://localhost/travis_ci_test'" > .env.test
-  - bundle exec rake db:create
   - bundle exec rake db:migrate
