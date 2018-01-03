@@ -1,1 +1,9 @@
 language: ruby
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - echo "DATABASE_URL='postgres://localhost/travis_ci_test'" > .env.test
+  - echo "SESSION_SECRET='8dab59a91eab93b3675f787cca843527'" >> .env.test
+  - bundle exec rake db:migrate

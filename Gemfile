@@ -33,10 +33,13 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara"
-  gem "capybara-screenshot"
+  #gem "capybara"
+  #gem "capybara-screenshot"
   gem "database_cleaner"
-  gem "poltergeist"
+  #gem "poltergeist"
   gem "rspec"
   gem "rom-factory", "~> 0.5"
+  gem "rack-test"
+  #gem "minitest"
+  #gem "minitest-hooks"
 end

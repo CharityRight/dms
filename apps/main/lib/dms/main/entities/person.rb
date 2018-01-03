@@ -4,6 +4,8 @@ module Dms
   module Main
     module Entities
       class Person < Dry::Struct
+        constructor_type :schema
+        attribute :id, Types::Strict::Int
         attribute :email, Types::Strict::String
         attribute :title, Types::Strict::String
         attribute :first_name, Types::Strict::String
