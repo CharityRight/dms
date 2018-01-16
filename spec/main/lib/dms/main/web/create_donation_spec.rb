@@ -1,3 +1,4 @@
+
 require 'spec_helper'
 
 RSpec.describe Dms::Web do
@@ -57,11 +58,11 @@ RSpec.describe Dms::Web do
     end
 
     it 'returns a successful response' do
-      expect last_response.ok?
+      expect(last_response).to be_successful
     end
 
     it 'returns a 202 http status' do
-      expect last_response.status == 202
+      expect(last_response.status).to eq 202
     end
 
     it 'returns expected json-api response' do
