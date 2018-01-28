@@ -6,6 +6,7 @@ module Dms
       class Cause < Dry::Struct
         constructor_type :schema
 
+        attribute :id, Types::Strict::Int
         attribute :name, Types::Strict::String
         attribute :description, Types::Strict::String
         attribute :location, Types::Strict::String
