@@ -96,7 +96,8 @@ RSpec.describe Dms::Web do
 
       before { post_with_json('/projects', invalid_json) }
 
-      it 'errors on cause fields' do
+      it 'errors on project field' do
+        expect(parsed_response.fetch('project')).to include('is missing')
       end
 
       it 'returns a 400' do
