@@ -7,8 +7,12 @@ module Dms
   module Main
     module Entities
       class Project < Dry::Struct
-        attribute :title, Types::Strict::String
+        constructor_type :schema
+
+        attribute :id, Types::Strict::Int
+        attribute :name, Types::Strict::String
         attribute :description, Types::Strict::String
+        attribute :code, Types::Strict::String
         attribute :location, Types::Strict::String # with a check of places we only deal in
         attribute :longitude, Types::Strict::String
         attribute :latitude, Types::Strict::String
@@ -16,9 +20,41 @@ module Dms
         attribute :created_at, Types::Strict::Time
         attribute :updated_at, Types::Strict::Time
         attribute :active, Types::Strict::Bool
-        attribute :total_target_in_pence, Types::Strict::Int
-        attribute :cause, Types::Strict::Array.member(::Dms::Main::Entities::Cause)
+        attribute :target_total, Types::Strict::Int
+
         alias_method :active?, :active
+      end
+
+      class ProjectWithCause < Project
+        attribute :cause, ::Dms::Main::Entities::Cause
+        def to_json_api
+          {
+            'data' => {
+              'id' => id,
+              'type' => 'projects',
+              'attributes' => {
+                'name' => name,
+                'description' => description,
+                'projectCode' => code,
+                'active' => active,
+                'location' => location,
+                'latitude' => latitude,
+                'longitude' => longitude,
+                'targetTotal' => target_total,
+                'zakat' => eligible_for_zakat
+              },
+              'relationships' => {
+                'cause' => {
+                  'links' => {
+                    "self" => "http://example.com/causes/#{cause.id}/relationships/cause",
+                    "related" => "http://example.com/causes/#{cause.id}/cause"
+                  },
+                  'data' => { 'type' => 'cause', 'id' => cause.id }
+                }
+              }
+            }
+          }.to_json
+        end
       end
     end
   end
