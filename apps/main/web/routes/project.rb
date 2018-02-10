@@ -7,7 +7,7 @@ module Dms
             create.(r["data"]) do |m|
               m.success do |created_project|
                 response.status = 201
-                created_cause.to_json_api
+                created_project.to_json_api
               end
               m.failure do |validation|
                 response.status = 400 # Malformed request

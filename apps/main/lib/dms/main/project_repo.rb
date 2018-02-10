@@ -6,10 +6,12 @@ module Dms
         saved_project = projects.transaction do
           new_project = projects.changeset(
             :create, project_attrs(project.fetch(:project))
-          ).associate(find_cause(project.dig :project, :causeCode))
+          ).associate(find_cause(project.dig(:project, :causeCode)))
           new_project.commit
         end
-        Dms::Main::Entities::ProjectWithCause.new(projects.by_pk(saved_project.id).one)
+        Dms::Main::Entities::ProjectWithCause.new(
+          aggregate(:cause).by_pk(saved_project.id).one
+        )
       end
 
       def project_attrs(attrs)
@@ -18,11 +20,11 @@ module Dms
           description: attrs.fetch(:description),
           active: attrs.fetch(:active),
           location: attrs.fetch(:location),
-          longitude: attrs.fetch(:longitude, ""),
-          latitude: attrs.fetch(:latitude, ""),
+          longitude: attrs.fetch(:longitude, ''),
+          latitude: attrs.fetch(:latitude, ''),
           eligible_for_zakat: attrs.fetch(:zakat),
-          project_code: attrs.fetch(:projectCode),
-          target_total: attrs.fetch(:targetTotal)
+          target_total: attrs.fetch(:targetTotal),
+          code: attrs.fetch(:projectCode)
         }
       end
 
@@ -33,8 +35,6 @@ module Dms
       def by_id(id)
         projects.by_pk(id).one!
       end
-
-      private
 
       def find_cause(code)
         causes.where(code: code).one

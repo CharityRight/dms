@@ -13,8 +13,8 @@ module Dms
             required(:zakat).filled
             required(:projectCode).filled
             required(:targetTotal).filled
-            optional(:longitude)
-            optional(:latitude)
+            optional(:longitude).filled
+            optional(:latitude).filled
           end
         end
       end

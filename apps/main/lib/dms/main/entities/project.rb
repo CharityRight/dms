@@ -9,9 +9,10 @@ module Dms
       class Project < Dry::Struct
         constructor_type :schema
 
+        attribute :id, Types::Strict::Int
         attribute :name, Types::Strict::String
         attribute :description, Types::Strict::String
-        attribute :project_code, Types::Strict::String
+        attribute :code, Types::Strict::String
         attribute :location, Types::Strict::String # with a check of places we only deal in
         attribute :longitude, Types::Strict::String
         attribute :latitude, Types::Strict::String
@@ -25,7 +26,35 @@ module Dms
       end
 
       class ProjectWithCause < Project
-        attribute :cause, Types::Strict::Array.member(::Dms::Main::Entities::Cause)
+        attribute :cause, ::Dms::Main::Entities::Cause
+        def to_json_api
+          {
+            'data' => {
+              'id' => id,
+              'type' => 'projects',
+              'attributes' => {
+                'name' => name,
+                'description' => description,
+                'projectCode' => code,
+                'active' => active,
+                'location' => location,
+                'latitude' => latitude,
+                'longitude' => longitude,
+                'targetTotal' => target_total,
+                'zakat' => eligible_for_zakat
+              },
+              'relationships' => {
+                'cause' => {
+                  'links' => {
+                    "self" => "http://example.com/causes/#{cause.id}/relationships/cause",
+                    "related" => "http://example.com/causes/#{cause.id}/cause"
+                  },
+                  'data' => { 'type' => 'cause', 'id' => cause.id }
+                }
+              }
+            }
+          }.to_json
+        end
       end
     end
   end
