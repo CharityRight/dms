@@ -16,6 +16,12 @@ module Dms
             end
           end
         end
+        r.get do
+          r.resolve "causes.operations.index" do |index|
+            results = index.call
+            results.mapper.model.collection_to_json_api(results.to_a)
+          end
+        end
       end
     end
   end

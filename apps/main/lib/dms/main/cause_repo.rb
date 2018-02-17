@@ -2,11 +2,17 @@ require "dms/repository"
 module Dms
   module Main
     class CauseRepo < Dms::Repository[:causes]
+      struct_namespace Main::Entities
+
       def create(cause)
         saved_cause = causes.transaction do
           create_cause(cause)
         end
-        Dms::Main::Entities::Cause.new(causes.by_pk(saved_cause.id).one)
+        causes.by_pk(saved_cause.id).one
+      end
+
+      def index
+        causes
       end
 
       def cause_attrs(attrs)
