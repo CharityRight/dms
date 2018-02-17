@@ -33,6 +33,10 @@ module Dms
         causes.by_pk(id).one!
       end
 
+      def get_by_code(code)
+        query(code: code).one
+      end
+
       private
 
       def create_cause(cause)
