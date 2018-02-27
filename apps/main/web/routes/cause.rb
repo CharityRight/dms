@@ -31,6 +31,20 @@ module Dms
                 end
               end
             end
+            r.put do
+              r.resolve 'causes.operations.update' do |update|
+                update.(code: code, attrs: r["data"]) do |m|
+                  m.success do |updated_cause|
+                    response.status = 200
+                    updated_cause.to_json_api
+                  end
+                  m.failure do |validation|
+                    response.status = 400 # Malformed request
+                    validation.errors.to_hash.to_json
+                  end
+                end
+              end
+            end
           end
           r.is do
             r.get do

@@ -11,6 +11,13 @@ module Dms
         causes.by_pk(saved_cause.id).one
       end
 
+      def update_by_code(code:, attrs:)
+        cause = get_by_code(code)
+        return unless cause
+        causes.transaction { update_cause(attrs[:cause]) }
+        causes.by_pk(cause.id).one
+      end
+
       def index
         causes
       end
@@ -39,6 +46,9 @@ module Dms
 
       private
 
+      def update_cause(cause)
+        causes.changeset(:update, cause).commit
+      end
       def create_cause(cause)
         causes.changeset(:create, cause_attrs(cause.fetch(:cause))).commit
       end

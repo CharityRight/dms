@@ -12,6 +12,16 @@ module Dms
             required(:location).filled
           end
         end
+        UpdateSchema = Dry::Validation.Form do
+          required(:cause).schema do
+            required(:code).filled
+            optional(:name).filled
+            optional(:description).filled
+            optional(:active).filled
+            optional(:code).filled
+            optional(:location).filled
+          end
+        end
       end
     end
   end
