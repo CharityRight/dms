@@ -15,11 +15,12 @@ module Dms
 
       #plugin :csrf, raise: true #TODO: Put Auth Header Check
       plugin :csrf, skip_middleware: true
-      plugin :dry_view
+      #plugin :dry_view
       plugin :error_handler
-      plugin :flash
+      #plugin :flash
       plugin :multi_route
       plugin :json_parser
+      plugin :all_verbs
 
       route do |r|
         r.multi_route

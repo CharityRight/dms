@@ -10,6 +10,10 @@ module Test
       post(uri, json, 'CONTENT_TYPE' => 'application/json')
     end
 
+    def put_with_json(uri, json)
+      put(uri, json, 'CONTENT_TYPE' => 'application/json')
+    end
+
     def parsed_response
       JSON.parse(last_response.body)
     end
