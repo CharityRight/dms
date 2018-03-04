@@ -46,10 +46,10 @@ module Dms
               'relationships' => {
                 'cause' => {
                   'links' => {
-                    "self" => "http://example.com/causes/#{cause.code}/relationships/cause",
-                    "related" => "http://example.com/causes/#{cause.code}/cause"
+                    "self" => "http://example.com/causes/#{cause&.code}/relationships/cause",
+                    "related" => "http://example.com/causes/#{cause&.code}/cause"
                   },
-                  'data' => { 'type' => 'cause', 'id' => cause.code }
+                  'data' => { 'type' => 'cause', 'id' => cause&.code }
                 }
               }
             }
