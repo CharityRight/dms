@@ -17,6 +17,20 @@ module Dms
             optional(:latitude).filled
           end
         end
+        UpdateSchema = Dry::Validation.Form do
+          required(:project).schema do
+            optional(:name).filled
+            optional(:description).filled
+            optional(:causeCode).filled
+            optional(:active).filled
+            optional(:location).filled
+            optional(:zakat).filled
+            required(:projectCode).filled
+            optional(:targetTotal).filled
+            optional(:longitude).filled
+            optional(:latitude).filled
+          end
+        end
       end
     end
   end
