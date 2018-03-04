@@ -30,7 +30,7 @@ module Dms
         def to_json_api
           {
             'data' => {
-              'id' => id,
+              'id' => code,
               'type' => 'projects',
               'attributes' => {
                 'name' => name,
@@ -46,10 +46,10 @@ module Dms
               'relationships' => {
                 'cause' => {
                   'links' => {
-                    "self" => "http://example.com/causes/#{cause.id}/relationships/cause",
-                    "related" => "http://example.com/causes/#{cause.id}/cause"
+                    "self" => "http://example.com/causes/#{cause.code}/relationships/cause",
+                    "related" => "http://example.com/causes/#{cause.code}/cause"
                   },
-                  'data' => { 'type' => 'cause', 'id' => cause.id }
+                  'data' => { 'type' => 'cause', 'id' => cause.code }
                 }
               }
             }
@@ -59,4 +59,3 @@ module Dms
     end
   end
 end
-

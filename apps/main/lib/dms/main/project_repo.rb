@@ -14,6 +14,15 @@ module Dms
         )
       end
 
+      def update_by_project_code(project_code:, attrs:)
+        project = get_by_project_code(project_code)
+        return unless project
+        projects.transaction { update_project(attrs[:project]) }
+        Dms::Main::Entities::ProjectWithCause.new(
+          aggregate(:cause).by_pk(project.id).one
+        )
+      end
+
       def project_attrs(attrs)
         {
           name: attrs.fetch(:name),
@@ -38,6 +47,14 @@ module Dms
 
       def find_cause(code)
         causes.where(code: code).one
+      end
+
+      def get_by_project_code(project_code)
+        query(code: project_code).one
+      end
+
+      def update_project(project)
+        projects.changeset(:update, project).commit
       end
     end
   end
