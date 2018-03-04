@@ -12,7 +12,6 @@ module Dms
           include Dms::Main::Import["cause_repo"]
 
           def call(attrs:, code:)
-            #binding.pry
             validation = Validations::UpdateSchema.(
               prepare_attributes(attrs, code)
             )
@@ -28,7 +27,9 @@ module Dms
           private
 
           def prepare_attributes(attrs, code)
-            attrs.merge(code: code)
+            attrs.tap do |attributes|
+              attributes['cause']['code'] = code
+            end
           end
         end
       end
