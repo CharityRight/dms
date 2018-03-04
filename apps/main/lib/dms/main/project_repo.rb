@@ -49,8 +49,14 @@ module Dms
         causes.where(code: code).one
       end
 
-      def get_by_project_code(project_code)
-        query(code: project_code).one
+      def get_by_project_code(project_code, convert = false)
+        if convert
+          Dms::Main::Entities::ProjectWithCause.new(
+            aggregate(:cause).where(code: project_code).one
+          )
+        else
+          query(code: project_code).one
+        end
       end
 
       def update_project(project)
