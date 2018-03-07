@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Test
   module WebHelpers
     module_function
@@ -17,6 +19,5 @@ module Test
     def parsed_response
       JSON.parse(last_response.body)
     end
-
   end
 end

@@ -1,8 +1,10 @@
 
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Dms::Web do
-  describe "POST /donation" do
+  describe 'POST /donation' do
     let(:valid_json) do
       {
         'data' => {
@@ -43,8 +45,8 @@ RSpec.describe Dms::Web do
           'relationships' => {
             'donor' => {
               'links' => {
-                "self" => "http://example.com/donations/#{parsed_donation_id}/relationships/donor",
-                "related" => "http://example.com/donations/#{parsed_donation_id}/donor"
+                'self' => "http://example.com/donations/#{parsed_donation_id}/relationships/donor",
+                'related' => "http://example.com/donations/#{parsed_donation_id}/donor"
               },
               'data' => { 'type' => 'people', 'id' => parsed_donor_id }
             }
@@ -79,7 +81,7 @@ RSpec.describe Dms::Web do
       end
     end
 
-    context "when invalid" do
+    context 'when invalid' do
       let(:invalid_json) do
         {
           'data' => {}
@@ -107,6 +109,5 @@ RSpec.describe Dms::Web do
     def parsed_donor_id
       parsed_response.dig('data', 'relationships', 'donor', 'data', 'id')
     end
-
   end
 end

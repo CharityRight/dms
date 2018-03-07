@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Dms
   module View
     class Context

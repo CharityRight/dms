@@ -1,4 +1,6 @@
-require "dms/repository"
+# frozen_string_literal: true
+
+require 'dms/repository'
 module Dms
   module Main
     class CauseRepo < Dms::Repository[:causes]
@@ -49,6 +51,7 @@ module Dms
       def update_cause(cause)
         causes.changeset(:update, cause).commit
       end
+
       def create_cause(cause)
         causes.changeset(:create, cause_attrs(cause.fetch(:cause))).commit
       end

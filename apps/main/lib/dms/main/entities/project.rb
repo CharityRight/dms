@@ -1,7 +1,9 @@
-require "types"
-require "dms/main/entities/person"
-require "dms/main/entities/cause"
-require "dms/main/entities/project"
+# frozen_string_literal: true
+
+require 'types'
+require 'dms/main/entities/person'
+require 'dms/main/entities/cause'
+require 'dms/main/entities/project'
 
 module Dms
   module Main
@@ -22,7 +24,7 @@ module Dms
         attribute :active, Types::Strict::Bool
         attribute :target_total, Types::Strict::Int
 
-        alias_method :active?, :active
+        alias active? active
       end
 
       class ProjectWithCause < Project
@@ -32,28 +34,34 @@ module Dms
             'data' => {
               'id' => code,
               'type' => 'projects',
-              'attributes' => {
-                'name' => name,
-                'description' => description,
-                'projectCode' => code,
-                'active' => active,
-                'location' => location,
-                'latitude' => latitude,
-                'longitude' => longitude,
-                'targetTotal' => target_total,
-                'zakat' => eligible_for_zakat
-              },
-              'relationships' => {
-                'cause' => {
-                  'links' => {
-                    "self" => "http://example.com/causes/#{cause&.code}/relationships/cause",
-                    "related" => "http://example.com/causes/#{cause&.code}/cause"
-                  },
-                  'data' => { 'type' => 'cause', 'id' => cause&.code }
-                }
-              }
+              'attributes' => attributes,
+              'relationships' => relationships
             }
           }.to_json
+        end
+
+        private
+
+        def attributes
+          {
+            'name' => name, 'description' => description,
+            'projectCode' => code, 'active' => active,
+            'location' => location, 'latitude' => latitude,
+            'longitude' => longitude, 'targetTotal' => target_total,
+            'zakat' => eligible_for_zakat
+          }
+        end
+
+        def relationships
+          {
+            'cause' => {
+              'links' => {
+                'self' => "http://example.com/causes/#{cause&.code}/relationships/cause",
+                'related' => "http://example.com/causes/#{cause&.code}/cause"
+              },
+              'data' => { 'type' => 'cause', 'id' => cause&.code }
+            }
+          }
         end
       end
     end

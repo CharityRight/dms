@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'dms/main/import'
 require 'dms/main/entities/project'
 require 'dms/main/projects/validations/project'
@@ -9,20 +11,18 @@ module Dms
       module Operations
         class Update
           include Dms::Matcher
-          include Dms::Main::Import["project_repo"]
+          include Dms::Main::Import['project_repo']
 
           def call(attrs:, project_code:)
-            validation = Validations::UpdateSchema.(
+            validation = Validations::UpdateSchema.call(
               prepare_attributes(attrs, project_code)
             )
-            if validation.success?
-              project = project_repo.update_by_project_code(
-                project_code: project_code, attrs: validation.output
-              )
-              Dry::Monads::Right(project)
-            else
-              Dry::Monads::Left(validation)
-            end
+            return Dry::Monads::Left(validation) unless validation.success?
+
+            project = project_repo.update_by_project_code(
+              project_code: project_code, attrs: validation.output
+            )
+            Dry::Monads::Right(project)
           end
 
           private

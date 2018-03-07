@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Dms
   module Main
     class Web
       route 'causes' do |r|
         r.post do
           r.resolve 'causes.operations.create' do |create|
-            create.(r["data"]) do |m|
+            create.call(r['data']) do |m|
               m.success do |created_cause|
                 response.status = 201
                 created_cause.to_json_api
@@ -20,10 +22,8 @@ module Dms
           r.on :code do |code|
             r.get do
               r.resolve 'causes.operations.get' do |cause|
-                cause.(code) do |m|
-                  m.success do |cause_found|
-                    cause_found.to_json_api
-                  end
+                cause.call(code) do |m|
+                  m.success(&:to_json_api)
                   m.failure do |errors|
                     response.status = 404 # Malformed request
                     errors.to_json
@@ -33,7 +33,7 @@ module Dms
             end
             r.put do
               r.resolve 'causes.operations.update' do |update|
-                update.(code: code, attrs: r["data"]) do |m|
+                update.call(code: code, attrs: r['data']) do |m|
                   m.success do |updated_cause|
                     response.status = 200
                     updated_cause.to_json_api

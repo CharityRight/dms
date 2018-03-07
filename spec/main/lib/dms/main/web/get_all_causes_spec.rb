@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Dms::Web do
-
   describe 'GET /causes' do
-
     let(:valid_json) do
       {
         'data' => {
@@ -52,6 +52,5 @@ RSpec.describe Dms::Web do
     def first_parsed_cause_id
       parsed_response.first.dig('data', 'id')
     end
-
   end
 end

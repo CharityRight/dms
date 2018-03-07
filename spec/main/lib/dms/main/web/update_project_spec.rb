@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 # TODO: Add when cause does not exist context
 
 RSpec.describe Dms::Web do
   describe 'PUT /projects' do
     context 'when valid' do
-      context "when cause exists" do
+      context 'when cause exists' do
         let(:valid_json) do
           {
             'data' => {
@@ -16,7 +18,7 @@ RSpec.describe Dms::Web do
                 'location' => 'SUDAN CAMP',
                 'latitude' => '22222',
                 'longitude' => '33333',
-                'targetTotal' => 10000,
+                'targetTotal' => 10_000,
                 'zakat' => true,
                 'projectCode' => project_code
               }
@@ -37,16 +39,16 @@ RSpec.describe Dms::Web do
                 'location' => 'SUDAN CAMP',
                 'latitude' => '22222',
                 'longitude' => '33333',
-                'targetTotal' => 10000,
+                'targetTotal' => 10_000,
                 'zakat' => true
               },
               'relationships' => {
                 'cause' => {
                   'links' => {
-                    "self" => "http://example.com/causes/#{parsed_cause_id}/relationships/cause",
-                    "related" => "http://example.com/causes/#{parsed_cause_id}/cause"
+                    'self' => "http://example.com/causes/#{parsed_cause_id}/relationships/cause",
+                    'related' => "http://example.com/causes/#{parsed_cause_id}/cause"
                   },
-                  'data' => { 'type' => 'cause', 'id' => parsed_cause_id}
+                  'data' => { 'type' => 'cause', 'id' => parsed_cause_id }
                 }
               }
             }

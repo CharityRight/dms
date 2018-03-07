@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Dms::Web do
-
   describe 'PUT /causes/:id' do
     context 'when valid' do
       let(:create_json) do
@@ -65,7 +66,7 @@ RSpec.describe Dms::Web do
       end
     end
 
-    context "when invalid" do
+    context 'when invalid' do
       let(:invalid_json) do
         {
           'data' => {}

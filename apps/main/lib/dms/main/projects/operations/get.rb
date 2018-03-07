@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'dms/main/import'
 require 'dms/main/entities/project'
 require 'dms/main/projects/validations/project'
@@ -9,7 +11,7 @@ module Dms
       module Operations
         class Get
           include Dms::Matcher
-          include Dms::Main::Import["project_repo"]
+          include Dms::Main::Import['project_repo']
 
           def call(project_code)
             project = project_repo.get_by_project_code(project_code, true)

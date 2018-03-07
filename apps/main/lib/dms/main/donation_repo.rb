@@ -1,4 +1,6 @@
-require "dms/repository"
+# frozen_string_literal: true
+
+require 'dms/repository'
 module Dms
   module Main
     class DonationRepo < Dms::Repository[:donations]
@@ -43,7 +45,8 @@ module Dms
       end
 
       private
-      # TODO Move to donor repo
+
+      # TODO: Move to donor repo
       def find_or_create_donor(donation)
         donor = find_donor_with_email(donation.dig(:donor, :email))
         donor || create_donor_from_donation(donation)

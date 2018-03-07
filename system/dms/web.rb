@@ -1,7 +1,9 @@
-require "dry/web/roda/application"
-require_relative "container"
-require "rack/method_override"
-require "rack/csrf"
+# frozen_string_literal: true
+
+require 'dry/web/roda/application'
+require_relative 'container'
+require 'rack/method_override'
+require 'rack/csrf'
 
 module Dms
   class Web < Dry::Web::Roda::Application
