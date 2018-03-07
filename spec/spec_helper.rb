@@ -3,7 +3,8 @@
 ENV['RACK_ENV'] = 'test'
 require 'rack/test'
 require 'pry-byebug'
-
+require 'simplecov'
+SimpleCov.start
 SPEC_ROOT = Pathname(__FILE__).dirname
 
 require_relative SPEC_ROOT.join('../system/dms/container')

@@ -39,4 +39,5 @@ group :test do
   gem 'rack-test'
   gem 'rom-factory', '~> 0.5'
   gem 'rspec'
+  gem 'simplecov', require: false
 end
