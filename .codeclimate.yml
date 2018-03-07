@@ -1,21 +1,19 @@
----
-engines:
-  brakeman:
-    enabled: false
+version: "2"
+plugins:
   rubocop:
     enabled: true
-    channel: rubocop-0-51
-    checks:
-      Rubocop/Style/RaiseArgs:
-        enabled: false
-      Rubocop/Style/ConditionalAssignment:
-        enabled: false
+  eslint:
+    enabled: false
+  csslint:
+    enabled: false
+  brakeman:
+    enabled: false
   bundler-audit:
     enabled: true
   reek:
     enabled: false
   duplication:
-    enabled: false
+    enabled: true
     config:
       languages:
       - ruby
@@ -26,22 +24,3 @@ engines:
     enabled: false
   shellcheck:
     enabled: true
-ratings:
-  paths:
-  - "**.rb"
-  - "**.js"
-  - "**.css"
-  - Gemfile.lock
-exclude_paths:
-- config/**/*
-- "coverage/**/*"
-- db/**/*
-- features/**/*
-- "log/**/*"
-- node_modules/**/*
-- script/**/*
-- spec/**/*
-- test/**/*
-- tmp/**/*
-- vendor/**/*
-- "**/spec"
