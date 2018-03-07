@@ -1,5 +1,7 @@
 # Donation Management System
 [![Build Status](https://travis-ci.org/CharityRight/dms.svg?branch=master)](https://travis-ci.org/CharityRight/dms)
+[![Maintainability](https://api.codeclimate.com/v1/badges/2b2ee5c0d60fe785093d/maintainability)](https://codeclimate.com/github/CharityRight/dms/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/2b2ee5c0d60fe785093d/test_coverage)](https://codeclimate.com/github/CharityRight/dms/test_coverage)
 
 # High Level Vision
 The idea of the application is that a CRM will send an API request with
