@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Dms::Web do
-
   describe 'GET /causes/:code' do
-    let(:code) { "FOOD" }
+    let(:code) { 'FOOD' }
     let(:valid_json) do
       {
         'data' => {
@@ -33,10 +34,9 @@ RSpec.describe Dms::Web do
         }
       }
     end
-    context "with valid code" do
-
+    context 'with valid code' do
       before do
-        post_with_json("/causes", valid_json)
+        post_with_json('/causes', valid_json)
         get("causes/#{code}")
       end
 
@@ -45,7 +45,7 @@ RSpec.describe Dms::Web do
       end
     end
 
-    context "when cause does not exist" do
+    context 'when cause does not exist' do
       let(:expected_invalid_json_response) do
         { 'errors' => "Cause #{code} not found" }
       end

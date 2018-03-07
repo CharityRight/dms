@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'dms/main/import'
 require 'dms/main/entities/cause'
 require 'dms/main/causes/validations/cause'
@@ -9,7 +11,7 @@ module Dms
       module Operations
         class Index
           include Dms::Matcher
-          include Dms::Main::Import["cause_repo"]
+          include Dms::Main::Import['cause_repo']
 
           def call
             cause_repo.index

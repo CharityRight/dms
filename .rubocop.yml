@@ -1,0 +1,12 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  DisplayStyleGuide: true
+
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context', 'route']
+
+Documentation:
+    Enabled: false
+
+Metrics/LineLength:
+  Max: 120

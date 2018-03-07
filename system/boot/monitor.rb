@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 Dms::Container.boot :monitor do
   init do
-    require "dry/monitor"
+    require 'dry/monitor'
   end
 
   start do

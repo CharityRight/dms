@@ -1,4 +1,6 @@
-require "types"
+# frozen_string_literal: true
+
+require 'types'
 
 module Dms
   module Main
@@ -15,7 +17,7 @@ module Dms
         attribute :active, Types::Strict::Bool
         attribute :code, Types::Strict::String
 
-        alias_method :active?, :active
+        alias active? active
 
         def self.collection_to_json_api(causes)
           causes.map(&:json_api_hash).to_json
@@ -30,14 +32,20 @@ module Dms
             'data' => {
               'id' => id,
               'type' => 'causes',
-              'attributes' => {
-                'name' => name,
-                'description' => description,
-                'location' => location,
-                'active' => active,
-                'code' => code
-              }
+              'attributes' => attributes
             }
+          }
+        end
+
+        private
+
+        def attributes
+          {
+            'name' => name,
+            'description' => description,
+            'location' => location,
+            'active' => active,
+            'code' => code
           }
         end
       end

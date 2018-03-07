@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'dms/main/import'
 require 'dms/main/entities/project'
 require 'dms/main/projects/validations/project'
@@ -9,10 +11,10 @@ module Dms
       module Operations
         class Create
           include Dms::Matcher
-          include Dms::Main::Import["project_repo"]
+          include Dms::Main::Import['project_repo']
 
           def call(attributes)
-            validation = Validations::ProjectSchema.(attributes_with_cause_id(attributes))
+            validation = Validations::ProjectSchema.call(attributes_with_cause_id(attributes))
             if validation.success?
               project = project_repo.create(validation.output)
               Dry::Monads::Right(project)
@@ -22,8 +24,11 @@ module Dms
           end
 
           private
+
           def attributes_with_cause_id(attributes)
-            cause = project_repo.find_cause(attributes.dig(:project, :causeCode))
+            cause = project_repo.find_cause(
+              attributes.dig(:project, :causeCode)
+            )
             attributes[:project][:cause] = cause.id if cause
             attributes
           end

@@ -1,7 +1,9 @@
-require "types"
-require "dms/main/entities/person"
-require "dms/main/entities/cause"
-require "dms/main/entities/project"
+# frozen_string_literal: true
+
+require 'types'
+require 'dms/main/entities/person'
+require 'dms/main/entities/cause'
+require 'dms/main/entities/project'
 
 module Dms
   module Main
@@ -28,25 +30,35 @@ module Dms
               'data' => {
                 'id' => id,
                 'type' => 'donations',
-                'attributes' => {
-                  'amount' => amount,
-                  'currency' => currency,
-                  'zakat' => zakat,
-                  'start_date' => start_date,
-                  'end_date' => end_date,
-                  'donation_type' => donation_type
-                },
-                'relationships' => {
-                  'donor' => {
-                    'links' => {
-                      "self" => "http://example.com/donations/#{id}/relationships/donor",
-                      "related" => "http://example.com/donations/#{id}/donor"
-                    },
-                    'data' => { 'type' => 'people', 'id' => donor.id }
-                  }
-                }
+                'attributes' => attributes,
+                'relationships' => relationships
               }
             }.to_json
+          end
+
+          private
+
+          def attributes
+            {
+              'amount' => amount,
+              'currency' => currency,
+              'zakat' => zakat,
+              'start_date' => start_date,
+              'end_date' => end_date,
+              'donation_type' => donation_type
+            }
+          end
+
+          def relationships
+            {
+              'donor' => {
+                'links' => {
+                  'self' => "http://example.com/donations/#{id}/relationships/donor",
+                  'related' => "http://example.com/donations/#{id}/donor"
+                },
+                'data' => { 'type' => 'people', 'id' => donor.id }
+              }
+            }
           end
         end
 
