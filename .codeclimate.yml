@@ -1,0 +1,26 @@
+version: "2"
+plugins:
+  rubocop:
+    enabled: true
+  eslint:
+    enabled: false
+  csslint:
+    enabled: false
+  brakeman:
+    enabled: false
+  bundler-audit:
+    enabled: true
+  reek:
+    enabled: false
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+      - javascript
+  fixme:
+    enabled: true
+  markdownlint:
+    enabled: false
+  shellcheck:
+    enabled: true

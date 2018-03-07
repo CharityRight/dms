@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 Dms::Container.boot :settings, from: :system do
   before :init do
-    ::Kernel.require "types"
+    ::Kernel.require 'types'
   end
 
   settings do

@@ -1,4 +1,6 @@
-require "types"
+# frozen_string_literal: true
+
+require 'types'
 
 module Dms
   module Main
@@ -14,14 +16,11 @@ module Dms
         attribute :address_2,  Types::Strict::String
         attribute :address_3,  Types::Strict::String
         attribute :post_code,  Types::Strict::String
-        attribute :county,  Types::Strict::String
-        attribute :country,  Types::Strict::String
+        attribute :county, Types::Strict::String
+        attribute :country, Types::Strict::String
         attribute :created_at, Types::Strict::Time
         attribute :updated_at, Types::Strict::Time
       end
     end
   end
 end
-
-
-

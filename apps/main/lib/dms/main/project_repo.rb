@@ -1,14 +1,11 @@
-require "dms/repository"
+# frozen_string_literal: true
+
+require 'dms/repository'
 module Dms
   module Main
     class ProjectRepo < Dms::Repository[:projects]
       def create(project)
-        saved_project = projects.transaction do
-          new_project = projects.changeset(
-            :create, project_attrs(project.fetch(:project))
-          ).associate(find_cause(project.dig(:project, :causeCode)))
-          new_project.commit
-        end
+        saved_project = create_project(project)
         Dms::Main::Entities::ProjectWithCause.new(
           aggregate(:cause).by_pk(saved_project.id).one
         )
@@ -25,8 +22,7 @@ module Dms
 
       def project_attrs(attrs)
         {
-          name: attrs.fetch(:name),
-          description: attrs.fetch(:description),
+          name: attrs.fetch(:name), description: attrs.fetch(:description),
           active: attrs.fetch(:active),
           location: attrs.fetch(:location),
           longitude: attrs.fetch(:longitude, ''),
@@ -56,6 +52,17 @@ module Dms
           )
         else
           query(code: project_code).one
+        end
+      end
+
+      private
+
+      def create_project(project)
+        projects.transaction do
+          new_project = projects.changeset(
+            :create, project_attrs(project.fetch(:project))
+          ).associate(find_cause(project.dig(:project, :causeCode)))
+          new_project.commit
         end
       end
 

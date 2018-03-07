@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'dms/main/import'
 require 'dms/main/entities/cause'
 require 'dms/main/causes/validations/cause'
@@ -9,10 +11,10 @@ module Dms
       module Operations
         class Create
           include Dms::Matcher
-          include Dms::Main::Import["cause_repo"]
+          include Dms::Main::Import['cause_repo']
 
           def call(attributes)
-            validation = Validations::CauseSchema.(attributes)
+            validation = Validations::CauseSchema.call(attributes)
             if validation.success?
               cause = cause_repo.create(validation.output)
               Dry::Monads::Right(cause)

@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Dms::Web do
-
   describe 'GET /projects/:project_code' do
-    let(:project_code) { "SCHOOL_1" }
+    let(:project_code) { 'SCHOOL_1' }
     let(:valid_json) do
       {
         'data' => {
@@ -21,7 +22,7 @@ RSpec.describe Dms::Web do
         'location' => 'SUDAN CAMP',
         'latitude' => '22222',
         'longitude' => '33333',
-        'targetTotal' => 10000,
+        'targetTotal' => 10_000,
         'zakat' => true,
         'causeCode' => cause_code
       }
@@ -36,10 +37,10 @@ RSpec.describe Dms::Web do
           'relationships' => {
             'cause' => {
               'links' => {
-                "self" => "http://example.com/causes/#{cause_code}/relationships/cause",
-                "related" => "http://example.com/causes/#{cause_code}/cause"
+                'self' => "http://example.com/causes/#{cause_code}/relationships/cause",
+                'related' => "http://example.com/causes/#{cause_code}/cause"
               },
-              'data' => { 'type' => 'cause', 'id' => cause_code}
+              'data' => { 'type' => 'cause', 'id' => cause_code }
             }
           }
         }
@@ -60,7 +61,7 @@ RSpec.describe Dms::Web do
       }.to_json
     end
 
-    context "with valid project code" do
+    context 'with valid project code' do
       before do
         post_with_json('/causes', create_cause_json)
         post_with_json('/projects', valid_json)
@@ -72,8 +73,8 @@ RSpec.describe Dms::Web do
       end
     end
 
-    context "when project does not exist" do
-      let(:project_code) { "INVALID_CODE" }
+    context 'when project does not exist' do
+      let(:project_code) { 'INVALID_CODE' }
       let(:expected_invalid_json_response) do
         { 'errors' => "Project #{project_code} not found" }
       end

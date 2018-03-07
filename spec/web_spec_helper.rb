@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 require_relative 'spec_helper'
 require 'database_cleaner'
 
-require_relative SPEC_ROOT.join("../system/dms/web")
-require_relative SPEC_ROOT.join("../apps/main/system/dms/main/web")
-require_relative "support/web/helpers"
-require_relative "support/db/helpers"
+require_relative SPEC_ROOT.join('../system/dms/web')
+require_relative SPEC_ROOT.join('../apps/main/system/dms/main/web')
+require_relative 'support/web/helpers'
+require_relative 'support/db/helpers'
 
-Dir[SPEC_ROOT.join("support/web/*.rb").to_s].each(&method(:require))
+Dir[SPEC_ROOT.join('support/web/*.rb').to_s].each(&method(:require))
 
 # TODO: Move into db_spec_helper
-require "database_cleaner"
+require 'database_cleaner'
 DatabaseCleaner[:sequel, connection: Test::DatabaseHelpers.db].strategy = :truncation
 
 # Use the minitest-hooks plugin to add the :all condition

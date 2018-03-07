@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ENV['RACK_ENV'] = 'test'
 require 'rack/test'
 require 'pry-byebug'
@@ -7,12 +9,12 @@ SPEC_ROOT = Pathname(__FILE__).dirname
 require_relative SPEC_ROOT.join('../system/dms/container')
 require 'database_cleaner'
 
-require_relative SPEC_ROOT.join("../system/dms/web")
-require_relative SPEC_ROOT.join("../apps/main/system/dms/main/web")
-require_relative "support/web/helpers"
-require_relative "support/db/helpers"
+require_relative SPEC_ROOT.join('../system/dms/web')
+require_relative SPEC_ROOT.join('../apps/main/system/dms/main/web')
+require_relative 'support/web/helpers'
+require_relative 'support/db/helpers'
 
-require "database_cleaner"
+require 'database_cleaner'
 DatabaseCleaner[:sequel, connection: Test::DatabaseHelpers.db].strategy = :truncation
 
 RSpec.configure do |config|
@@ -31,11 +33,9 @@ RSpec.configure do |config|
   config.filter_run :focus
   config.run_all_when_everything_filtered = true
 
-  config.example_status_persistence_file_path = "spec/examples.txt"
+  config.example_status_persistence_file_path = 'spec/examples.txt'
 
-  if config.files_to_run.one?
-    config.default_formatter = "doc"
-  end
+  config.default_formatter = 'doc' if config.files_to_run.one?
 
   config.profile_examples = 10
   config.order = :random

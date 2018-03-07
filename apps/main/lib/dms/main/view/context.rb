@@ -1,4 +1,6 @@
-require "dms/view/context"
+# frozen_string_literal: true
+
+require 'dms/view/context'
 
 module Dms
   module Main

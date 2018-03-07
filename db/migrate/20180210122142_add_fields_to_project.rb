@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ROM::SQL.migration do
   change do
     add_column :projects, :eligible_for_zakat, :boolean, default: false, index: true

@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Dms::Web do
-
   describe 'POST /causes' do
     context 'when valid' do
       let(:valid_json) do
@@ -47,7 +48,7 @@ RSpec.describe Dms::Web do
       end
     end
 
-    context "when invalid" do
+    context 'when invalid' do
       let(:invalid_json) do
         {
           'data' => {}
@@ -68,6 +69,5 @@ RSpec.describe Dms::Web do
     def parsed_cause_id
       parsed_response.dig('data', 'id')
     end
-
   end
 end
