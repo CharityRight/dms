@@ -24,7 +24,8 @@ module Dms
           start_date: attrs.fetch(:startDate),
           end_date: attrs.fetch(:endDate),
           donation_type: 1, # TODO: lookup donation type
-          zakat: attrs.fetch(:zakat)
+          zakat: attrs.fetch(:zakat),
+          correlation_id: attrs.fetch(:correlationId)
         }
       end
 

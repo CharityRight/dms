@@ -5,6 +5,7 @@ require 'spec_helper'
 
 RSpec.describe Dms::Web do
   describe 'POST /donation' do
+    let(:correlation_id) { '102020-999191-0101AH1' }
     let(:valid_json) do
       {
         'data' => {
@@ -14,7 +15,8 @@ RSpec.describe Dms::Web do
             'startDate' => '12/12/2009',
             'endDate' => '12/12/2019',
             'donationType' => 'one-off',
-            'zakat' => 'no'
+            'zakat' => 'no',
+            'correlationId' => correlation_id
           },
           'cause' => {
             'project' => 'SUDAN',
@@ -32,7 +34,7 @@ RSpec.describe Dms::Web do
     let(:expected_json_api_response) do
       {
         'data' => {
-          'id' => parsed_donation_id,
+          'id' => correlation_id,
           'type' => 'donations',
           'attributes' => {
             'amount' => 20,
@@ -45,8 +47,8 @@ RSpec.describe Dms::Web do
           'relationships' => {
             'donor' => {
               'links' => {
-                'self' => "http://example.com/donations/#{parsed_donation_id}/relationships/donor",
-                'related' => "http://example.com/donations/#{parsed_donation_id}/donor"
+                'self' => "http://example.com/donations/#{correlation_id}/relationships/donor",
+                'related' => "http://example.com/donations/#{correlation_id}/donor"
               },
               'data' => { 'type' => 'people', 'id' => parsed_donor_id }
             }
