@@ -13,6 +13,7 @@ module Dms
             required(:endDate).filled
             required(:donationType).filled
             required(:zakat).filled
+            required(:correlationId).filled
           end
           required(:donor).schema do
             required(:email).filled
@@ -28,23 +29,3 @@ module Dms
     end
   end
 end
-__END__
-{
-  donation: {
-    amount: 200.00,
-    currency: "GBP",
-    start_date: "12/12/2017",
-    end_date: "12/12/2017",
-    donation_type: "one-off",
-    zakat: false,
-  },
-  donor: {
-    email: "jon@do.com",
-    first_name: "Jon",
-    last_name: "Do",
-  },
-  cause: {
-    project: "SUDAN",
-    code: "SCHOOL-MEALS",
-  },
-}

@@ -13,6 +13,7 @@ module Dms
         Donation_Types = Types::Strict::String.enum('one-off', 'monthly', 'yearly')
 
         attribute :id, Types::Strict::Int
+        attribute :correlation_id, Types::Strict::String
         attribute :amount, Types::Strict::Int
         attribute :currency, Types::Strict::String
         attribute :zakat, Types::Bool
@@ -28,7 +29,7 @@ module Dms
           def to_json_api
             {
               'data' => {
-                'id' => id,
+                'id' => correlation_id,
                 'type' => 'donations',
                 'attributes' => attributes,
                 'relationships' => relationships
@@ -53,8 +54,8 @@ module Dms
             {
               'donor' => {
                 'links' => {
-                  'self' => "http://example.com/donations/#{id}/relationships/donor",
-                  'related' => "http://example.com/donations/#{id}/donor"
+                  'self' => "http://example.com/donations/#{correlation_id}/relationships/donor",
+                  'related' => "http://example.com/donations/#{correlation_id}/donor"
                 },
                 'data' => { 'type' => 'people', 'id' => donor.id }
               }
